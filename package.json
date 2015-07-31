@@ -1,0 +1,11 @@
+{
+    "name": "number-picker",
+    "version": "0.0.1",
+    "main": "number-picker.js",
+    "nativescript": {
+        "platforms": {
+            "ios": "1.0.0",
+            "android": "1.1.0"
+        }
+    }
+}
