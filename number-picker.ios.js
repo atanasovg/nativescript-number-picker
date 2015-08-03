@@ -1,4 +1,6 @@
 var common = require("./number-picker-common");
+var common = require("./number-picker-common");
+var style = require("ui/styling");
 
 function onValuePropertyChanged(data) {
     var picker = data.object;
@@ -39,5 +41,31 @@ var NumberPicker = (function (_super) {
     });
     return NumberPicker;
 })(common.NumberPicker);
+
+// this function is called when the `color` Style property changes on a `NumberPicker` instance 
+function setColor(view, value) {
+    var nativePicker = view.ios;
+
+    // value is UIColor, so we may apply it directly
+    nativePicker.tintColor = value;
+}
+
+// this function is called when the `color` Style property changes and the new value is `undefined`
+function resetColor(view, value) {
+    var nativePicker = view.ios;
+
+    // value is native UIColor, so apply it directly
+    nativePicker.tintColor = value;
+}
+
+// this function is called when the `Styler` is about to reset the `color` property to its default (original) value.
+function getNativeColorValue(view) {
+    var nativePicker = view.ios;
+
+    return nativePicker.tintColor;
+}
+
+var changedHandler = new style.stylers.StylePropertyChangedHandler(setColor, resetColor, getNativeColorValue);
+style.stylers.registerHandler(style.properties.colorProperty, changedHandler, "NumberPicker");
 
 exports.NumberPicker = NumberPicker;

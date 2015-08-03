@@ -1,6 +1,5 @@
 var common = require("./number-picker-common");
 var style = require("ui/styling");
-var colorModule = require("color");
 
 function onValuePropertyChanged(data) {
     var picker = data.object;
@@ -40,48 +39,5 @@ var NumberPicker = (function (_super) {
     });
     return NumberPicker;
 })(common.NumberPicker);
-
-var defaultColor;
-
-function setColor(view, value) {
-    var nativePicker = view.android;
-
-    var size = 0;
-    var count = nativePicker.getChildCount();
-    for(var i = 0; i < count; i++) {
-        var child = nativePicker.getChildAt(i);
-        if(child instanceof android.widget.TextView) {
-            child.setTextColor(value);
-        }
-    }
-}
-
-function resetColor(view, value) {
-    setFontSize(defaultTextSize);
-}
-
-function getNativeColorValue(view) {
-    if(defaultColor) {
-        return defaultColor;
-    }
-
-    var nativePicker = view.android;
-
-    var color;
-    var count = nativePicker.getChildCount();
-
-    for(var i = 0; i < count; i++) {
-        var child = nativePicker.getChildAt(i);
-        if(child instanceof android.widget.TextView) {
-            defaultColor = new colorModule.Color(child.getTextColor());
-            break;
-        }
-    }
-
-    return defaultColor;
-}
-
-var changedHandler = new style.stylers.StylePropertyChangedHandler(setColor, resetColor, getNativeColorValue);
-style.stylers.registerHandler(style.properties.colorProperty, changedHandler, "NumberPicker");
 
 exports.NumberPicker = NumberPicker;
