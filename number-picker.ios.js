@@ -1,6 +1,6 @@
 var common = require("./number-picker-common");
 var common = require("./number-picker-common");
-var style = require("ui/styling");
+var style = require("ui/styling/style");
 
 function onValuePropertyChanged(data) {
     var picker = data.object;
@@ -65,7 +65,7 @@ function getNativeColorValue(view) {
     return nativePicker.tintColor;
 }
 
-var changedHandler = new style.stylers.StylePropertyChangedHandler(setColor, resetColor, getNativeColorValue);
-style.stylers.registerHandler(style.properties.colorProperty, changedHandler, "NumberPicker");
+var changedHandler = new style.StylePropertyChangedHandler(setColor, resetColor, getNativeColorValue);
+style.registerHandler(style.colorProperty, changedHandler, "NumberPicker");
 
 exports.NumberPicker = NumberPicker;
